@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="signup-email-modal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body">
+                <button id="close-sign-up" class="btn btn btn-outline-secondary float-left mb-4" data-dismiss="modal" aria-label="Close">
+                    <span class="fas fa-window-close"></span>
+                </button>
+                <form id="registration-form" method="POST">
+                    <div class="mt-5 mb-2">
+                        {% csrf_token %}
+                        {{ form.email }}
+                        <small id="validation-email" class="text-danger error"></small>
+                        {{ form.first_name }}
+                        <small id="validation-first_name" class="text-danger error"></small>
+                        {{ form.last_name }}
+                        <small id="validation-last_name" class="text-danger error"></small>
+                        {{ form.password }}
+                        <small id="validation-password" class="text-danger error"></small>
+                        {{ form.confirm_password }}
+                        <small id="validation-confirm_password" class="text-danger error"></small>
+                        <div class="form-row mt-4">
+                            <h4 class="ml-2">Birthday</h4>
+                            <small class="ml-2">To sign up, you must be 18 or older. Other people won’t see your birthday.</small>
+                           {{ form.birth_date }}
+                        </div>
+                        <small id="validation-birth_date" class="text-danger error"></small>
+                    </div>
+                    <button type="button" id="btn-register" class="btn btn-primary btn-block mt-4">
+                        Sign up
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#signup-email-modal').modal('show');
+    });
+    $("#sign-up-with-email").click(function(){
+        $("#signup-modal").modal("hide");
+        $("#signup-email-modal").modal("show");
+    });
+    
+</script>
+{% endblock %}

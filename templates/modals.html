@@ -1,0 +1,63 @@
+{% load socialaccount %}
+
+{% load static %}
+    <div id="signup-modal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-body">
+                    <button class="btn btn btn-outline-secondary float-left mb-4" data-dismiss="modal" aria-label="Close">
+                    <span class="fas fa-window-close"></span>
+                    </button>
+                    <div class="mt-5">
+                        <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary btn-block mr-4">
+                            <span class="fab fa-facebook-f mr-2"></span>
+                            Sign up with Facebook
+                        </a>
+                        <a href="{% provider_login_url 'google' method='oauth2' %}" class="btn btn-default btn-block border border-secondary border-2 mr-4 mb-4">
+                            <span class="fab fa-google mr-2"></span>
+                            Sign up with Google
+                        </a>
+                    </div>
+                    <center><p class="text-muted">or continue with</p></center>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'account_signup' %}" id="sign-up-with-email" class="btn btn-danger btn-block">
+                        <span class="fas fa-envelope mr-2"></span>
+                        Sign up with Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="login-modal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-body">
+                    <button class="btn btn btn-outline-secondary float-left mb-2" data-dismiss="modal" aria-label="Close">
+                    <span class="fas fa-window-close"></span>
+                    </button>
+                    <div class="my-5">
+                        <div>
+                            <h3 class="mb-4">Login to continue</h3>
+                        </div>
+                        <a href="{% provider_login_url 'google' method='oauth2' %}" id="login-with-google"class="btn btn-default btn-block border border-secondary border-2 mr-4">
+                            <span class="fab fa-google mr-2"></span>
+                            Login with Google
+                        </a>
+                    </div>
+                    <center>or continue with</center>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'account_login' %}" id="login-with-email" class="btn btn-danger btn-block mr-4">
+                        <span class="fas fa-envelope mr-2"></span>
+                        Email Address
+                    </a>
+                    <a id="login-with-fb" href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary btn-block mt-0">
+                        <span class="fab fa-facebook-f mr-2"></span>
+                        Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>

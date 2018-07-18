@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% load socialaccount %}
+
+{% block head_title %}Password Reset{% endblock %}
+
+{% block content %}
+    <div id="login-email-modal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="login-email" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-body">
+                    <button class="btn btn btn-outline-secondary float-left mb-2" data-dismiss="modal" aria-label="Close">
+                    <span class="fas fa-window-close"></span>
+                    </button>
+                    <div class="mt-5">
+                        <div>
+                            <h3 class="mb-4">Login to continue</h3>
+                        </div>
+                       <form id="form-email-login">
+                            {% csrf_token %}
+                            <input type="email" name="email" class="form-control rounded-0" placeholder="Email Address">
+                            <small id="login-email-val" class="text-danger error"></small>
+
+                            <input id="login-password" type="password" name="password" class="form-control mt-4 rounded-0" placeholder="Password">
+                            <small id="login-password-val" class="text-danger error"></small>
+                            <div class="form-check my-4">
+                                <input type="checkbox" class="form-check-input" name="remember_me">
+                                <label class="form-check-label" for="remember_me">Remember me</label>
+                                <div class="float-right">
+                                    <a id="show-hide-password" href="#">Show password?</a>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <center>
+                                    <small id="login-failed-val" class="text-danger error"></small>
+                                </center>
+                            </div>
+                            <button id="button-login-email" type="button" class="btn btn-danger btn-block mr-4 mb-4">
+                                Log in
+                            </button>
+
+                            <center><a id="btn-forgot-password" href="/accounts/password/reset/">Forgot password?</a></center>
+                        </form>
+                    </div>
+                    <center><p class="text-muted mt-4 mb-0"> or continue with </p></center>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% provider_login_url 'facebook' method='oauth2' %}" id="login-with-fb" class="btn btn-primary btn-block mr-4">
+                        <span class="fab fa-facebook-f mr-2"></span>
+                        Facebook
+                    </a>
+                    <a href="{% provider_login_url 'google' method='oauth2' %}" id="login-with-google" class="btn btn-default btn-block border border-secondary mt-0">
+                        <span class="fab fa-google mr-2"></span>
+                        Google
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#login-email-modal').modal('show');
+    });
+
+    $("#button-login-email").click(function (e) {
+        e.preventDefault();
+
+        var form = $(this).closest('form');
+        $.post('/accounts/login/', form.serialize())
+            .done(function (response) {
+                window.location.href="/";
+            })
+            .fail(function (err) {
+                var error = $.parseJSON(err.responseText);
+                form.find('.error').empty();
+                console.log(error);
+                $.each(error, function (key, content) {
+                    form.find('#login-'+key+'-val').html(content);
+                });
+            });
+    });
+</script>
+{% endblock %}
+
