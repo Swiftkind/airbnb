@@ -1,0 +1,43 @@
+@media (min-width: 992px){
+    .nav-link{
+        padding-right: .5rem;
+        padding-left: .5rem;
+    }
+    .nav-link:hover{
+      border-bottom: 2px solid #666;
+      padding: 6px 0; 
+    }
+}
+
+
+@media (min-width: 576px) { 
+    .hidden-xs{ 
+        display:none;
+    }
+}
+
+@media (min-width: 768px) { 
+    .hidden-xs{ 
+        display:none;
+    }
+}
+
+@media (min-width: 992px) { 
+    .hidden-xs{ 
+        display:block;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .hidden-xs{ 
+        display:block;
+    }
+}
+
+.dropdown-toggle::after {
+    display:none;
+}
+
+.modal {
+  overflow-y:auto;
+}
